@@ -19,7 +19,7 @@
 
 
 
-    <div id="titre" class="container-fluid justify-content-center text-center mb-5 ">
+    <div class="container-fluid justify-content-center text-center mb-5 ">
 
 
         <img id="imgtitre" src="https://zupimages.net/up/21/44/n5pm.png" alt="">
@@ -30,23 +30,26 @@
 
 
 
-    <div id="choose" class="container-fluid text-center justify-content-center mb-5">
+    <div id="choose" class="container-fluid text-center justify-content-center mb-5 rounded">
         <div class="row">
 
             <div class="col align-self-center ">
-                <article id=modalHero class="container-fluid bg-danger">
-                    <label for=heroName>Enter your name , Adventurers !</label><br>
-                    <input id=heroName type="text" name="ivan le turlupin" class="mb-1" required><br>
-                    <label for="heroRace">Choose your race:</label> <br>
-                    <select id=heroRace name="heroRace" class="mb-1" required>
+                <article id="zero" class="container-fluid  rounded">
+                    <label id="titre" class="mt-2 " for=Name>Enter your name , Adventurers !</label><br>
+                    <input id=Name type="text" name="ivan le turlupin" class="mb-5" required><br>
+
+
+                    <label class="mt-3" id="titre2" for="Race">Choose your race:</label> <br>
+                    <select id=hRace name="Race" class="mb-2" required>
                         <option value="Human" selected>Human (-20% damage taken)</option>
                         <option value="Orc">Orc (+40% max health)</option>
                         <option value="Elf">Elf (30% chance deflect attack)</option>
                         <option value="Vampire">Vampire (10% lifesteal each turn)</option>
                     </select>
                     <br>
-                    <label for=heroItem>Choose your special item:</label> <br>
-                    <select id=heroItem name="heroItem" class="mb-1" required>
+
+                    <label id="titre2" for=Item>Choose your special item:</label> <br>
+                    <select id=Item name="Item" class="mb-5" required>
                         <option value="Boots" selected>Boots (30% change to dodge)</option>
                         <option value="Staff">Staff (+20% healing)</option>
                         <option value="Sword">Sword (+30% damage)</option>
