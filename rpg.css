@@ -40,7 +40,10 @@ canvas {
 
 #imgtitre {
     width: 15vw;
-    height: 15vw;
+}
+
+#imgtitre2 {
+    width: 10vw;
 }
 
 #choose {

@@ -2,3 +2,13 @@ particlesJS("particles-js", { "particles": { "number": { "value": 80, "density":
 var count_particles, stats, update;
 
 count_particles = document.querySelector('.js-count-particles');
+
+
+
+var menu = document.getElementById("menu");
+var button = document.getElementById("button");
+
+document.getElementById("button").addEventListener("click", function() {
+
+    menu.setAttribute("style", "display:none")
+})
