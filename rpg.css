@@ -1,32 +1,36 @@
-*{
+* {
     font-family: 'New Rocker', cursive;
 }
-body{
-  
-     background: -webkit-radial-gradient(rgb(87, 0, 0), rgb(176, 120, 0));
-background: radial-gradient(rgb(87, 0, 0), rgb(176, 120, 0)); 
 
-   
-    
+body {
+    background: -webkit-radial-gradient(rgb(87, 0, 0), rgb(176, 120, 0));
+    background: radial-gradient(rgb(87, 0, 0), rgb(176, 120, 0));
+}
+
+canvas {
+    display: block;
+    vertical-align: bottom;
 }
 
 
+/* ---- particles.js container ---- */
 
-
-
-
-#imgtitre{
-width: 15vw;
-height: 15vw;
-
-
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: 50% 50%;
+    z-index: -1;
 }
 
+#imgtitre {
+    width: 15vw;
+    height: 15vw;
+}
 
-
-
-
-
+#choose {
+    width: 50%;
+}
 
 
 /* ANIMATION DE BOUTON */
@@ -46,10 +50,10 @@ height: 15vw;
 
 .glow-on-hover:before {
     content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #c48600, #e7bd00,  #ff0000);
+    background: linear-gradient(45deg, #ff0000, #ff7300, #c48600, #e7bd00, #ff0000);
     position: absolute;
     top: -2px;
-    left:-2px;
+    left: -2px;
     background-size: 400%;
     z-index: -1;
     filter: blur(5px);
@@ -86,8 +90,13 @@ height: 15vw;
 }
 
 @keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
 }
-
