@@ -7,8 +7,33 @@ count_particles = document.querySelector('.js-count-particles');
 
 var menu = document.getElementById("menu");
 var button = document.getElementById("button");
+var input = document.getElementById("name")
+var nom2 = document.getElementById("name2")
+
+
+
+
+
 
 document.getElementById("button").addEventListener("click", function() {
 
     menu.setAttribute("style", "display:none")
+
+
 })
+
+/* input.addEventListener("keyup", function() {
+
+
+
+
+    nom2.textContent = "Name : " + input.value 
+
+
+
+})
+ */
+
+
+
+var me = []
