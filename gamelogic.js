@@ -14,17 +14,17 @@ var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "fra
 
 
 
-
 function Random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// POUR LE RANDOM ATTACK ET SANTE
-
-var santevalue = Random(0, 30)
-var attaquervalue = Random(0, 20)
 
 
+
+function scrollPosition() {
+    var scroll = document.getElementById("log");
+    scroll.scrollTop = scroll.scrollHeight;
+}
 
 
 //Pour le random du bot 
@@ -53,17 +53,35 @@ var botlife = document.getElementById("botlife")
 
 // OBJET PERSONNE POUR JOUEUR ET BOT 
 function Person(name, race, item) {
-    this.name = name;
-    this.race = race;
-    this.item = item;
-    this.currentHealth = 100;
-    this.maxHealth = 100;
+    {
+        this.name = name;
+        this.race = race;
+        this.item = item;
+        this.currentHealth = 100;
+        this.maxHealth = 100;
+        this.min = 1;
+        this.dammage = 20;
 
-    this.maxDamage = 20;
-    this.maxHealing = 30;
+        this.maxHealing = 15;
+    }
+
+
+    this.degat = () => {
+        let dmg = Math.floor(Math.random() * (this.dammage - this.min) + this.min);
+
+        return dmg;
+    }
+
+    this.heal = () => {
+        let healing = Math.floor(Math.random() * (this.maxHealing - this.min) + this.min);
+
+        return healing;
+    }
+
+
+
+
 }
-
-
 
 
 changeHero = () => {
@@ -71,17 +89,6 @@ changeHero = () => {
     heroname.textContent = "Hero: " + hero.name;
     herorace.textContent = "Race: " + hero.race;
     herostuff.textContent = "Stuff: " + hero.item
-
-
-
-
-
-
-    /*  raceBonus(hero);
-     itemBonus(hero);
-     heroHP.value = hero.currentHealth;
-     heroHP.max = hero.maxHealth;
-     hero.displayChar();  */
 }
 
 
@@ -89,19 +96,22 @@ Setbot = () => {
     bot = new Person(botnamerandom, botracerandom, botitemsrandom);
     botname.textContent = "Hero: " + bot.name;
     botrace.textContent = "Race: " + bot.race;
-    botstuff.textContent = "Stuff: " + bot.item
+    botstuff.textContent = "Stuff: " + bot.item;
+    botlife.value = bot.currentHealth
 
 
 }
-
-
 
 botlogic = () => {
 
     if (botlife.value < 37) {
 
         // jouer vie 
-        console.log("sw1")
+        let botheal = bot.heal()
+        botlife.value = botlife.value + botheal
+        bot.currentHealth = botlife
+
+
 
     } else if (herolife.value < 30) {
 
@@ -109,16 +119,22 @@ botlogic = () => {
 
 
             //soigner 
+            botlife.value = botlife.value + Random(1, 15)
+            bot.currentHealth = botlife
             console.log("soin 2 ")
 
         } else {
             //attaquer
+
+
             console.log("attaque 1")
         }
 
     } else {
 
         //jouer attaque
+
+
 
         console.log("attaquefinal")
     }
@@ -133,13 +149,27 @@ botlogic = () => {
 
 
 
-
-updateLog = () => {
+logtxt = " Bienvenue dans les enfers ! "
+log.innerHTML = logtxt
+updateLog = (x) => {
 
     logplace.scrollTop = 9999;
-    log.textContent = log.textContent + ("<br>" + hero.name + " attacks " + bot.name + " he infliged : " + attaquervalue.value);
-    console.log("<br>" + hero.name + " attacks " + bot.name + " he infliged : " + Random(1, 20))
+    log.innerHTML = log.innerHTML + ("<br>" + hero.name + " attacks " + bot.name + " he infliged : " + x + " Damage !");
+    console.log(hero.name + " attacks " + bot.name + " he infliged : " + x)
+
+    scrollPosition()
 }
+
+
+updateLogHeal = (y) => {
+
+    logplace.scrollTop = 9999;
+    log.innerHTML = log.innerHTML + ("<br>" + hero.name + "healing himself  and restore   " + y + "  , now is life is : " + herolife.value);
+    console.log(hero.name + "healing himself  and restore " + y + " , now is life is :" + herolife.value)
+
+    scrollPosition()
+}
+
 
 
 
@@ -150,24 +180,63 @@ document.getElementById("button").addEventListener("click", function() {
 
     menu.setAttribute("style", "display:none")
 
-
     changeHero()
     Setbot()
-
-
-
-    console.log(botnamerandom)
-    console.log(Items[2].value)
-
-
-
 })
+
+
 
 attack.addEventListener("click", function() {
 
+    let dammage = hero.degat()
 
-    botlife.value = botlife.value - Random(1, 20)
-    updateLog()
+    botlife.value = botlife.value - dammage
+    bot.currentHealth = botlife
+
+    updateLog(dammage)
+
+
+
+
+
+
+    /*   if (botlife.value == 0) {
+          alert(" You win ")
+      }
+
+      if (herolife.value == 0) {
+          alert("you loose ")
+      } else {
+          botlogic()
+
+      } */
+
+})
+
+
+
+heal.addEventListener("click", function() {
+
+    let healeur = hero.heal()
+
+    herolife.value = herolife.value + healeur
+    hero.currentHealth = herolife
+
+
+
+    updateLogHeal(healeur)
+
+
+    if (botlife.value == 0) {
+        alert(" You win ")
+    }
+
+    if (herolife.value == 0) {
+        alert("you loose ")
+    } else {
+        botlogic()
+
+    }
 
 
 

@@ -44,7 +44,8 @@ canvas {
 }
 
 #versus {
-    padding-top: 20vh;
+    width: 50%;
+    height: auto;
 }
 
 #heal {
@@ -66,6 +67,14 @@ canvas {
 #log {
     max-height: 20vh;
     overflow-y: scroll;
+    scroll-margin: 0px;
+    overflow: hidden;
+}
+
+#logplace {
+    background-image: url(https://zupimages.net/up/21/45/em6p.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 
