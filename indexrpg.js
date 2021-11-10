@@ -21,19 +21,3 @@ document.getElementById("button").addEventListener("click", function() {
 
 
 })
-
-/* input.addEventListener("keyup", function() {
-
-
-
-
-    nom2.textContent = "Name : " + input.value 
-
-
-
-})
- */
-
-
-
-var me = []

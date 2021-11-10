@@ -7,18 +7,12 @@ var logplace = document.getElementById("logplace")
 var heal = document.getElementById("heal")
 var attack = document.getElementById("attack")
 
-
-
 var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "francis", "ivan", "marine", "aurelien", "morgane"]
-
-
 
 
 function Random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
 
 
 function scrollPosition() {
@@ -31,9 +25,6 @@ function scrollPosition() {
 var botnamerandom = Botname[Random(0, 10)]
 var botracerandom = Race[Random(0, 3)].value
 var botitemsrandom = Items[Random(0, 3)].value
-
-
-
 
 
 
@@ -51,37 +42,7 @@ var botlife = document.getElementById("botlife")
 
 
 
-// OBJET PERSONNE POUR JOUEUR ET BOT 
-function Person(name, race, item) {
-    {
-        this.name = name;
-        this.race = race;
-        this.item = item;
-        this.currentHealth = 100;
-        this.maxHealth = 100;
-        this.min = 1;
-        this.dammage = 20;
-
-        this.maxHealing = 15;
-    }
-
-
-    this.degat = () => {
-        let dmg = Math.floor(Math.random() * (this.dammage - this.min) + this.min);
-
-        return dmg;
-    }
-
-    this.heal = () => {
-        let healing = Math.floor(Math.random() * (this.maxHealing - this.min) + this.min);
-
-        return healing;
-    }
-
-
-
-
-}
+// DEFINIR LOBJET  POUR JOUEUR ET BOT 
 
 
 changeHero = () => {
@@ -89,6 +50,9 @@ changeHero = () => {
     heroname.textContent = "Hero: " + hero.name;
     herorace.textContent = "Race: " + hero.race;
     herostuff.textContent = "Stuff: " + hero.item
+    herolife.value = hero.currentHealth
+    herolife.max = hero.currentHealth
+
 }
 
 
@@ -98,7 +62,7 @@ Setbot = () => {
     botrace.textContent = "Race: " + bot.race;
     botstuff.textContent = "Stuff: " + bot.item;
     botlife.value = bot.currentHealth
-
+    botlife.max = bot.currentHealth
 
 }
 
@@ -144,11 +108,6 @@ botlogic = () => {
 }
 
 
-
-
-
-
-
 logtxt = " Bienvenue dans les enfers ! "
 log.innerHTML = logtxt
 updateLog = (x) => {
@@ -173,44 +132,84 @@ updateLogHeal = (y) => {
 
 
 
-
-
-
 document.getElementById("button").addEventListener("click", function() {
 
     menu.setAttribute("style", "display:none")
-
     changeHero()
     Setbot()
+
+
+
 })
+
+
+
+
+
+variablepourattaquer = (attaquant, defenseurguillemet, defenseur) => {
+
+
+    var bardevie = document.getElementById(defenseurguillemet + "life");
+
+    let dammage = attaquant.degat();
+
+    // Si le defenseur est humain , l'attaque de l'attaquant est réduite 
+    if (defenseur.race == "Human") {
+        dammage = dammage * 0.7
+    }
+
+    bardevie.value = bardevie.value - dammage;
+    defenseur.currentHealth = bardevie.value;
+    updateLog(dammage)
+    console.log(dammage)
+
+
+    if (attaquant.item == "Bow") {
+        var d = Math.random() * 100;
+        if (d > 70) {
+
+            bardevie.value = bardevie.value - dammage
+            defenseur.currentHealth = bardevie.value
+            updateLog(dammage)
+            console.log(dammage)
+
+        }
+    }
+
+    // si le defenseur a des boots , il a une chance d'esquiver l'attaque de base , else combat normal 
+    if (defenseur.item == "Boots") {
+        var d = Math.random() * 100;
+        if (d > 50) {
+
+
+            log.innerHTML = log.innerHTML + ("<br>" + " Mais au dernier moment " + defenseur.name + "  a esquivé l'attaque ");
+            bardevie.value = bardevie.value + dammage;
+            defenseur.currentHealth = bardevie.value;
+
+
+        }
+
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
 
 
 
 attack.addEventListener("click", function() {
 
-    let dammage = hero.degat()
 
-    botlife.value = botlife.value - dammage
-    bot.currentHealth = botlife
-
-    updateLog(dammage)
-
-
-
-
-
-
-    /*   if (botlife.value == 0) {
-          alert(" You win ")
-      }
-
-      if (herolife.value == 0) {
-          alert("you loose ")
-      } else {
-          botlogic()
-
-      } */
-
+    variablepourattaquer(hero, "bot", bot)
 })
 
 
@@ -244,3 +243,85 @@ heal.addEventListener("click", function() {
 
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* attaquerbot = () => {
+    let dammage = hero.degat()
+
+
+
+
+    if (bot.race == "Human") {
+        dammage = dammage * 0.7
+    }
+
+
+
+
+    botlife.value = botlife.value - dammage
+    bot.currentHealth = botlife
+
+    updateLog(dammage)
+    console.log(dammage)
+
+
+    //    LE BOW 
+    if (hero.item == "Bow") {
+        var d = Math.random() * 100;
+        if (d > 70) {
+            let dammage = hero.degat()
+            botlife.value = botlife.value - dammage
+            bot.currentHealth = botlife
+            updateLog(dammage)
+        }
+    }
+
+
+
+
+
+
+} */
