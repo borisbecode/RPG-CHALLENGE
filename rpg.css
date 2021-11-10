@@ -65,7 +65,7 @@ canvas {
 }
 
 #log {
-    max-height: 20vh;
+    max-height: 27vh;
     overflow-y: scroll;
     scroll-margin: 0px;
     overflow: hidden;
@@ -75,6 +75,13 @@ canvas {
     background-image: url(https://zupimages.net/up/21/45/em6p.png);
     background-position: center;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 50vh;
+    min-width: auto;
+}
+
+.parent {
+    padding: 0;
 }
 
 
@@ -106,6 +113,8 @@ canvas {
     z-index: 0;
     border-radius: 10px;
     animation: glowing 20s linear infinite;
+    margin-right: 2vw;
+    margin-left: 2vw;
 }
 
 .glow-on-hover:before {
