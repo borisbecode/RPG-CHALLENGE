@@ -9,24 +9,19 @@ var attack = document.getElementById("attack")
 
 var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "francis", "ivan", "marine", "aurelien", "morgane"]
 
-
 function Random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 function scrollPosition() {
     var scroll = document.getElementById("log");
     scroll.scrollTop = scroll.scrollHeight;
 }
 
-
 //Pour le random du bot 
 var botnamerandom = Botname[Random(0, 10)]
 var botracerandom = Race[Random(0, 3)].value
 var botitemsrandom = Items[Random(0, 3)].value
-
-
 
 // POUR METTRE LES INFORMATIONS RECOLTEE ET LES RANDOMS BOT DANS LES P 
 var heroname = document.getElementById("heroname")
@@ -38,13 +33,7 @@ var botrace = document.getElementById("botrace")
 var botstuff = document.getElementById("botstuff")
 var botlife = document.getElementById("botlife")
 
-
-
-
-
 // DEFINIR LOBJET  POUR JOUEUR ET BOT 
-
-
 changeHero = () => {
     hero = new Person(Name.value, Race.value, Items.value);
     heroname.textContent = "Hero: " + hero.name;
@@ -52,9 +41,7 @@ changeHero = () => {
     herostuff.textContent = "Stuff: " + hero.item
     herolife.value = hero.currentHealth
     herolife.max = hero.currentHealth
-
 }
-
 
 Setbot = () => {
     bot = new Person(botnamerandom, botracerandom, botitemsrandom);
@@ -107,9 +94,10 @@ botlogic = () => {
 
 }
 
-
+// la console du combat 
 logtxt = " Bienvenue dans les enfers ! "
 log.innerHTML = logtxt
+
 updateLog = (x) => {
 
     logplace.scrollTop = 9999;
@@ -138,78 +126,118 @@ document.getElementById("button").addEventListener("click", function() {
     changeHero()
     Setbot()
 
-
-
 })
 
-
-
-
-
-variablepourattaquer = (attaquant, defenseurguillemet, defenseur) => {
-
-
+isvampire = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
     var bardevie = document.getElementById(defenseurguillemet + "life");
-
-    let dammage = attaquant.degat();
-
-    // Si le defenseur est humain , l'attaque de l'attaquant est réduite 
-    if (defenseur.race == "Human") {
-        dammage = dammage * 0.7
-    }
-
-    bardevie.value = bardevie.value - dammage;
-    defenseur.currentHealth = bardevie.value;
-    updateLog(dammage)
-    console.log(dammage)
-
-
-    if (attaquant.item == "Bow") {
-        var d = Math.random() * 100;
-        if (d > 70) {
-
-            bardevie.value = bardevie.value - dammage
-            defenseur.currentHealth = bardevie.value
-            updateLog(dammage)
-            console.log(dammage)
-
-        }
-    }
-
-    // si le defenseur a des boots , il a une chance d'esquiver l'attaque de base , else combat normal 
-    if (defenseur.item == "Boots") {
-        var d = Math.random() * 100;
-        if (d > 50) {
-
-
-            log.innerHTML = log.innerHTML + ("<br>" + " Mais au dernier moment " + defenseur.name + "  a esquivé l'attaque ");
-            bardevie.value = bardevie.value + dammage;
-            defenseur.currentHealth = bardevie.value;
-
-
-        }
+    var mabardevie = document.getElementById(attaquantguillemet + "life");
+    let dammage = attaquant.degat()
+    let pimpage = dammage * 0.1
+    if (attaquant.race == "Vampire") {
+        bardevie.value = bardevie.value - pimpage;
+        defenseur.currentHealth = bardevie.value;
+        mabardevie.value = mabardevie.value + pimpage
+        log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " is a vampire , he bite " + defenseur.name + " and gains " + pimpage + " life ");
+        console.log("vampire !" + pimpage)
 
     }
-
-
-
-
-
 }
 
 
 
 
+// MA FONCTION POUR ATTAQUER , INDEPENDANTE , PERMET DE CHOISIR LATTAQUANT ET LE DEFENSEUR
+variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
+    var bardevie = document.getElementById(defenseurguillemet + "life");
+    var mabardevie = document.getElementById(attaquantguillemet + "life");
+    var dammage = attaquant.degat();
+    let reverse = dammage * 0.5
+
+
+    // Si le defenseur est de race humain , l'attaque de l'attaquant est réduite 
+    if (defenseur.race == "Human") {
+        dammage = dammage * 0.7
+    }
+
+    // SI LE DEFENSEUR A DES BOOTS IL A UNE CHANCE DESQUIVER SINON  COMBAT NORMAL DANS LE ELSE LIGNE 156
+    if (defenseur.item == "Boots") {
+        var d = Math.random() * 100;
+        if (d > 70) {
+            log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " attacks " + defenseur.name + ", but " + defenseur.name + " dodge it");
+            console.log("esquive")
+        } else {
+            bardevie.value = bardevie.value - dammage;
+            defenseur.currentHealth = bardevie.value;
+            updateLog(dammage)
+            console.log(dammage)
+        }
+
+
+    } else {
+
+
+        if (defenseur.race == "Elf") {
+
+            var d = Math.random() * 100;
+            if (d > 70) {
+
+                mabardevie.value = mabardevie.value - reverse
+                attaquant.currentHealth = mabardevie.value
+                log.innerHTML = log.innerHTML + ("<br>" + "with it's magical power,  " + defenseur.name + " counter the attack !!  " + "<br>" + attaquant.name + " loose " + reverse + " HP");
+                console.log("elf")
+            } else {
+                bardevie.value = bardevie.value - dammage;
+                defenseur.currentHealth = bardevie.value;
+                updateLog(dammage)
+                console.log(dammage)
+            }
+
+        } else {
 
 
 
+            //  LATTAQUE de base 
+            bardevie.value = bardevie.value - dammage;
+            defenseur.currentHealth = bardevie.value;
+            updateLog(dammage)
+            console.log(dammage)
+
+
+
+            // si l'attaquant a un arc , il a une chance de frapper a nouveau 
+            if (attaquant.item == "Bow") {
+                var d = Math.random() * 100;
+                if (d > 70) {
+
+                    bardevie.value = bardevie.value - dammage
+                    defenseur.currentHealth = bardevie.value
+                    updateLog(dammage)
+                    console.log(dammage)
+
+                }
+            }
+
+
+        }
+
+
+    }
+
+}
 
 
 
 attack.addEventListener("click", function() {
 
 
-    variablepourattaquer(hero, "bot", bot)
+
+    isvampire(hero, "hero", "bot", bot)
+
+    variablepourattaquer(hero, "hero", "bot", bot)
+
+
+
+
 })
 
 
@@ -243,85 +271,3 @@ heal.addEventListener("click", function() {
 
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* attaquerbot = () => {
-    let dammage = hero.degat()
-
-
-
-
-    if (bot.race == "Human") {
-        dammage = dammage * 0.7
-    }
-
-
-
-
-    botlife.value = botlife.value - dammage
-    bot.currentHealth = botlife
-
-    updateLog(dammage)
-    console.log(dammage)
-
-
-    //    LE BOW 
-    if (hero.item == "Bow") {
-        var d = Math.random() * 100;
-        if (d > 70) {
-            let dammage = hero.degat()
-            botlife.value = botlife.value - dammage
-            bot.currentHealth = botlife
-            updateLog(dammage)
-        }
-    }
-
-
-
-
-
-
-} */

@@ -78,6 +78,8 @@ canvas {
     background-size: 100% 100%;
     min-height: 50vh;
     min-width: auto;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 1px rgb(255, 255, 255);
 }
 
 .parent {
