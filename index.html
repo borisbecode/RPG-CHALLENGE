@@ -75,18 +75,19 @@
 
     </div>
 
-    <div id="combat">
+    <div id="combat" style="display: none;">
         <div class="container-fluid justify-content-center text-center mt-5 mb-5 ">
             <div class="row">
 
                 <div class="col-4 pt-5">
-                    <button class="glow-on-hover" type="button"> CHANGE CHARACTER !</button>
+                    <a href="https://borisbecode.github.io/RPG-CHALLENGE/"> <button class="glow-on-hover" type="button"> CHANGE CHARACTER !</button> </a>
+
 
                 </div>
                 <div class="col-4"> <img id="imgtitre2" src="https://zupimages.net/up/21/44/n5pm.png" alt=""> </div>
                 <div class="col-4 pt-5">
 
-                    <button class="glow-on-hover" type="button"> CHANGE ENNEMIES !</button>
+                    <button id="change" class="glow-on-hover" type="button"> CHANGE ENNEMIES !</button>
                 </div>
 
 
@@ -112,10 +113,12 @@
                     <br>
 
 
-                    <!-- <img class="img-responsive" src="https://zupimages.net/up/21/45/cb5j.png" alt=""> -->
+                    <img class="img-responsive" src="https://zupimages.net/up/21/45/cb5j.png" alt="">
 
 
-                    <canvas id="canvas1"></canvas>
+                    <!--  <canvas id="canvas1"></canvas> -->
+
+
 
 
 
@@ -225,6 +228,51 @@
 
             </div>
         </div>
+    </div>
+
+    <div id="win" style="display: none;">
+
+
+        <div id="choose" class="container-fluid text-center justify-content-center rounded">
+            <div class="row">
+
+                <div class="col align-self-center text-center justify-content-center ">
+                    <div id="winner" class="jumbotron justify-content-center text-center align-self-center mb-5">
+                        <h2 id="titre" class="mb-5 mt-2  "> Nice win Adventurers !! </h2>
+
+                        <a id="bas" href="https://borisbecode.github.io/RPG-CHALLENGE/"> <button id="bas" class="glow-on-hover" type="button"> Ready for the next level ? </button> </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div id="loose" style="display: none;">
+
+
+
+        <div id="choose2" class="container-fluid text-center justify-content-center rounded">
+            <div class="row">
+
+                <div class="col align-self-center text-center justify-content-center ">
+                    <div id="winner" class="jumbotron justify-content-center text-center align-self-center mb-5">
+                        <h2 id="titre" class="mb-5 mt-2  "> YOU ARE DEAD !! </h2>
+
+                        <a id="bas" href="https://borisbecode.github.io/RPG-CHALLENGE/"> <button id="bas" class="glow-on-hover" type="button"> Try again ? </button> </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 
 

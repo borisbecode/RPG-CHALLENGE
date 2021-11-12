@@ -6,6 +6,9 @@ var log = document.getElementById("log")
 var logplace = document.getElementById("logplace")
 var heal = document.getElementById("heal")
 var attack = document.getElementById("attack")
+var win = document.getElementById("win")
+var loose = document.getElementById("loose")
+var change = document.getElementById("change")
 
 var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "francis", "ivan", "marine", "aurelien", "morgane"]
 
@@ -53,66 +56,28 @@ Setbot = () => {
 
 }
 
-botlogic = () => {
 
-    if (botlife.value < 37) {
-
-        // jouer vie 
-        let botheal = bot.heal()
-        botlife.value = botlife.value + botheal
-        bot.currentHealth = botlife
-
-
-
-    } else if (herolife.value < 30) {
-
-        if (botlife < 10) {
-
-
-            //soigner 
-            botlife.value = botlife.value + Random(1, 15)
-            bot.currentHealth = botlife
-            console.log("soin 2 ")
-
-        } else {
-            //attaquer
-
-
-            console.log("attaque 1")
-        }
-
-    } else {
-
-        //jouer attaque
-
-
-
-        console.log("attaquefinal")
-    }
-
-
-
-}
 
 // la console du combat 
 logtxt = " Bienvenue dans les enfers ! "
 log.innerHTML = logtxt
 
-updateLog = (x) => {
+updateLog = (attaquant, defenseur, x) => {
 
     logplace.scrollTop = 9999;
-    log.innerHTML = log.innerHTML + ("<br>" + hero.name + " attacks " + bot.name + " he infliged : " + x + " Damage !");
-    console.log(hero.name + " attacks " + bot.name + " he infliged : " + x)
+    log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " attacks " + defenseur.name + " he infliged : " + parseInt(x) + " Damage !");
+    console.log(attaquant.name + " attacks " + defenseur.name + " he infliged : " + x)
 
     scrollPosition()
 }
 
 
-updateLogHeal = (y) => {
+updateLogHeal = (attaquant, attaquantguillemet, y) => {
+    var mabardevie = document.getElementById(attaquantguillemet + "life");
 
     logplace.scrollTop = 9999;
-    log.innerHTML = log.innerHTML + ("<br>" + hero.name + "healing himself  and restore   " + y + "  , now is life is : " + herolife.value);
-    console.log(hero.name + "healing himself  and restore " + y + " , now is life is :" + herolife.value)
+    log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + "healing himself  and restore   " + y + "  , now is life is : " + mabardevie.value);
+    console.log(attaquant.name + "healing himself  and restore " + y + " , now is life is :" + mabardevie.value)
 
     scrollPosition()
 }
@@ -122,9 +87,13 @@ updateLogHeal = (y) => {
 
 document.getElementById("button").addEventListener("click", function() {
 
+
     menu.setAttribute("style", "display:none")
+    combat.setAttribute("style", "display:none")
     changeHero()
     Setbot()
+
+    loose.setAttribute("style", "display:block")
 
 })
 
@@ -137,7 +106,7 @@ isvampire = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
         bardevie.value = bardevie.value - pimpage;
         defenseur.currentHealth = bardevie.value;
         mabardevie.value = mabardevie.value + pimpage
-        log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " is a vampire , he bite " + defenseur.name + " and gains " + pimpage + " life ");
+        log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " is a vampire , he bite " + defenseur.name + " and gains " + parseInt(pimpage) + " life ");
         console.log("vampire !" + pimpage)
 
     }
@@ -168,7 +137,7 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
         } else {
             bardevie.value = bardevie.value - dammage;
             defenseur.currentHealth = bardevie.value;
-            updateLog(dammage)
+            updateLog(attaquant, defenseur, dammage)
             console.log(dammage)
         }
 
@@ -188,7 +157,7 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
             } else {
                 bardevie.value = bardevie.value - dammage;
                 defenseur.currentHealth = bardevie.value;
-                updateLog(dammage)
+                updateLog(attaquant, defenseur, dammage)
                 console.log(dammage)
             }
 
@@ -199,7 +168,7 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
             //  LATTAQUE de base 
             bardevie.value = bardevie.value - dammage;
             defenseur.currentHealth = bardevie.value;
-            updateLog(dammage)
+            updateLog(attaquant, defenseur, dammage)
             console.log(dammage)
 
 
@@ -211,7 +180,7 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
 
                     bardevie.value = bardevie.value - dammage
                     defenseur.currentHealth = bardevie.value
-                    updateLog(dammage)
+                    updateLog(attaquant, defenseur, dammage)
                     console.log(dammage)
 
                 }
@@ -235,6 +204,54 @@ variableheal = (attaquant, attaquantguillemet) => {
 
 
 
+
+}
+
+
+botlogic = () => {
+
+
+
+    if (botlife.value < 37) {
+
+        // jouer vie 
+        isvampire(bot, "bot", "hero", hero)
+        variableheal(bot, "bot")
+        console.log("botvie")
+
+
+
+
+    } else if (herolife.value < 30) {
+
+        if (botlife < 10) {
+
+
+            //soigner 
+            isvampire(bot, "bot", "hero", hero)
+            variableheal(bot, "bot")
+            console.log("botvie12")
+
+        } else {
+            //attaquer
+            isvampire(bot, "bot", "hero", hero)
+            variablepourattaquer(bot, "bot", "hero", hero)
+            console.log("bot")
+
+        }
+
+    } else {
+
+        //jouer attaque
+
+        isvampire(bot, "bot", "hero", hero)
+
+        variablepourattaquer(bot, "bot", "hero", hero)
+        console.log("bot1")
+    }
+
+
+
 }
 
 
@@ -250,6 +267,33 @@ attack.addEventListener("click", function() {
 
 
 
+
+    setTimeout(() => {
+
+
+    }, 500);
+
+    if (botlife.value == 0) {
+        alert(" You win ")
+        combat.setAttribute("style", "display:none")
+        win.setAttribute("style", "display:block")
+    }
+
+    if (herolife.value == 0) {
+        alert("you loose ")
+
+        combat.setAttribute("style", "display:none")
+        loose.setAttribute("style", "display:block")
+    } else {
+
+        botlogic()
+
+
+    }
+
+
+
+
 })
 
 
@@ -261,15 +305,10 @@ heal.addEventListener("click", function() {
 
 
 
-    /*   let healeur = hero.heal()
-
-    herolife.value = herolife.value + healeur
-    hero.currentHealth = herolife
+    setTimeout(() => {
 
 
-
-    updateLogHeal(healeur)
-
+    }, 500);
 
     if (botlife.value == 0) {
         alert(" You win ")
@@ -281,9 +320,20 @@ heal.addEventListener("click", function() {
         botlogic()
 
     }
- */
 
 
+
+
+
+
+
+
+})
+
+
+change.addEventListener("click", function() {
+
+    Setbot()
 
 
 

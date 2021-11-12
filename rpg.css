@@ -36,6 +36,25 @@ canvas {
     width: 50%;
 }
 
+#choose2 {
+    margin-top: 5vh;
+    width: 45%;
+    overflow: hidden;
+}
+
+#bas {
+    margin-top: 50vh;
+}
+
+#winner {
+    background-image: url(https://zupimages.net/up/21/45/n9c9.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 800px;
+    height: 800px;
+}
+
 #zero {
     background-image: url(https://thumbs.dreamstime.com/b/pile-golden-treasure-cave-illustration-big-bright-pile-gold-coins-different-treasures-dark-cave-treasures-hidden-150291741.jpg);
     background-repeat: no-repeat;
@@ -160,10 +179,9 @@ canvas {
     }
 }
 
-#canvas1 {
+* #canvas1 {
     width: 500px;
     height: 500px;
-    /* animation: attackAnim1 0.3s; */
 }
 
 
