@@ -10,6 +10,7 @@ var win = document.getElementById("win")
 var loose = document.getElementById("loose")
 var change = document.getElementById("change")
 
+
 var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "francis", "ivan", "marine", "aurelien", "morgane"]
 
 function Random(min, max) {
@@ -44,6 +45,7 @@ changeHero = () => {
     herostuff.textContent = "Stuff: " + hero.item
     herolife.value = hero.currentHealth
     herolife.max = hero.currentHealth
+    hero.pictures()
 }
 
 Setbot = () => {
@@ -89,11 +91,11 @@ document.getElementById("button").addEventListener("click", function() {
 
 
     menu.setAttribute("style", "display:none")
-    combat.setAttribute("style", "display:none")
+    combat.setAttribute("style", "display:block")
     changeHero()
     Setbot()
 
-    loose.setAttribute("style", "display:block")
+
 
 })
 
@@ -257,7 +259,8 @@ botlogic = () => {
 
 
 attack.addEventListener("click", function() {
-
+    const element = document.getElementById('img1');
+    element.classList.add('animate__animated', 'animate__wobble');
 
 
     isvampire(hero, "hero", "bot", bot)
@@ -269,27 +272,30 @@ attack.addEventListener("click", function() {
 
 
     setTimeout(() => {
+        element.classList.remove('animate__animated', 'animate__wobble')
+
+        if (botlife.value == 0) {
+            alert(" You win ")
+            combat.setAttribute("style", "display:none")
+            win.setAttribute("style", "display:block")
+        }
+
+        if (herolife.value == 0) {
+            alert("you loose ")
+
+            combat.setAttribute("style", "display:none")
+            loose.setAttribute("style", "display:block")
+        } else {
+
+            botlogic()
+
+
+        }
 
 
     }, 500);
 
-    if (botlife.value == 0) {
-        alert(" You win ")
-        combat.setAttribute("style", "display:none")
-        win.setAttribute("style", "display:block")
-    }
 
-    if (herolife.value == 0) {
-        alert("you loose ")
-
-        combat.setAttribute("style", "display:none")
-        loose.setAttribute("style", "display:block")
-    } else {
-
-        botlogic()
-
-
-    }
 
 
 

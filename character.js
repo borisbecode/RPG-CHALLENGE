@@ -1,7 +1,7 @@
 var herolife = document.getElementById("herolife")
 
 var botlife = document.getElementById("botlife")
-
+var img1 = document.getElementById("img1")
 
 function Person(name, race, item) {
     {
@@ -66,8 +66,19 @@ function Person(name, race, item) {
 
 
 
+    this.pictures = () => {
 
 
+        if (this.race == "Orc")
+
+            document.getElementById('img1').src = "https://www.editions-soleil.fr/sites/default/files/2020-10/orcs-et-gobelins-homepage-vignette.jpg";
+
+
+
+
+
+
+    }
 
 }
 
