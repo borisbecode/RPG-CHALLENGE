@@ -159,3 +159,19 @@ canvas {
         background-position: 0 0;
     }
 }
+
+#canvas1 {
+    width: 500px;
+    height: 500px;
+    /* animation: attackAnim1 0.3s; */
+}
+
+
+/* @keyframes attackAnim1 {
+    25% {
+        transform: scale(1.15) translateX(10%)
+    }
+    100% {
+        transform: scale(1.15) translateX(0%)
+    }
+} */

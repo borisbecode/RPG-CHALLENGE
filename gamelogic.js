@@ -225,6 +225,18 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
 
 }
 
+variableheal = (attaquant, attaquantguillemet) => {
+    let healeur = attaquant.heal()
+    var mabardevie = document.getElementById(attaquantguillemet + "life");
+    mabardevie.value = mabardevie.value + healeur
+    attaquant.currentHealth = mabardevie
+    log.innerHTML = log.innerHTML + ("<br>" + attaquant.name + " se soigne de   " + healeur + " HP");
+    console.log(healeur)
+
+
+
+}
+
 
 
 attack.addEventListener("click", function() {
@@ -244,7 +256,12 @@ attack.addEventListener("click", function() {
 
 heal.addEventListener("click", function() {
 
-    let healeur = hero.heal()
+
+    variableheal(hero, "hero")
+
+
+
+    /*   let healeur = hero.heal()
 
     herolife.value = herolife.value + healeur
     hero.currentHealth = herolife
@@ -264,7 +281,7 @@ heal.addEventListener("click", function() {
         botlogic()
 
     }
-
+ */
 
 
 
