@@ -2,6 +2,7 @@ var herolife = document.getElementById("herolife")
 
 var botlife = document.getElementById("botlife")
 var img1 = document.getElementById("img1")
+var img2 = document.getElementById("img2")
 
 function Person(name, race, item) {
     {
@@ -66,12 +67,94 @@ function Person(name, race, item) {
 
 
 
-    this.pictures = () => {
+    this.pictures = (x) => {
 
 
-        if (this.race == "Orc")
+        if (this.race == "Orc") {
+            if (this.item == "Sword") {
+                document.getElementById('img' + x).src = "img/orcsword.png";
 
-            document.getElementById('img1').src = "https://www.editions-soleil.fr/sites/default/files/2020-10/orcs-et-gobelins-homepage-vignette.jpg";
+            }
+            if (this.item == "Boots") {
+                document.getElementById('img' + x).src = "img/orcboots.png";
+
+            }
+            if (this.item == "Bow") {
+                document.getElementById('img' + x).src = "img/orcbow.png";
+
+            }
+            if (this.item == "Staff") {
+                document.getElementById('img' + x).src = "img/orcstaff.png";
+
+            }
+
+
+
+
+
+
+        }
+
+        if (this.race == "Elf") {
+            if (this.item == "Sword") {
+                document.getElementById('img' + x).src = "img/elfsword.png";
+
+            }
+            if (this.item == "Boots") {
+                document.getElementById('img' + x).src = "img/elfboots.png";
+
+            }
+            if (this.item == "Bow") {
+                document.getElementById('img' + x).src = "img/elfbow.png";
+
+            }
+            if (this.item == "Staff") {
+                document.getElementById('img' + x).src = "img/elfstaff.png";
+
+            }
+
+        }
+        if (this.race == "Human") {
+            if (this.item == "Sword") {
+                document.getElementById('img' + x).src = "img/humansword.png";
+
+            }
+            if (this.item == "Boots") {
+                document.getElementById('img' + x).src = "img/humanboots.png";
+
+            }
+            if (this.item == "Bow") {
+                document.getElementById('img' + x).src = "img/humanbow.png";
+
+            }
+            if (this.item == "Staff") {
+                document.getElementById('img' + x).src = "img/humanstaff.png";
+
+            }
+
+        }
+
+        if (this.race == "Vampire") {
+
+            if (this.item == "Sword") {
+                document.getElementById('img' + x).src = "img/vampiresword.png";
+
+            }
+            if (this.item == "Boots") {
+                document.getElementById('img' + x).src = "img/vampireboots.png";
+
+            }
+            if (this.item == "Bow") {
+                document.getElementById('img' + x).src = "img/vampirebow.png";
+
+            }
+            if (this.item == "Staff") {
+                document.getElementById('img' + x).src = "img/vampirestaff.png";
+
+            }
+
+
+        }
 
 
 

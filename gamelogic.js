@@ -9,6 +9,8 @@ var attack = document.getElementById("attack")
 var win = document.getElementById("win")
 var loose = document.getElementById("loose")
 var change = document.getElementById("change")
+const element = document.getElementById('img1');
+const element2 = document.getElementById('img2')
 
 
 var Botname = ["lionel", "sofian", "boris", "thomas", "etienne", "nicolas", "francis", "ivan", "marine", "aurelien", "morgane"]
@@ -36,25 +38,30 @@ var botname = document.getElementById("botname")
 var botrace = document.getElementById("botrace")
 var botstuff = document.getElementById("botstuff")
 var botlife = document.getElementById("botlife")
+var img2 = document.getElementById("img2")
 
 // DEFINIR LOBJET  POUR JOUEUR ET BOT 
 changeHero = () => {
     hero = new Person(Name.value, Race.value, Items.value);
     heroname.textContent = "Hero: " + hero.name;
-    herorace.textContent = "Race: " + hero.race;
-    herostuff.textContent = "Stuff: " + hero.item
+    /*   herorace.textContent = "Race: " + hero.race;
+      herostuff.textContent = "Stuff: " + hero.item */
     herolife.value = hero.currentHealth
     herolife.max = hero.currentHealth
-    hero.pictures()
+    hero.pictures(1)
 }
 
 Setbot = () => {
     bot = new Person(botnamerandom, botracerandom, botitemsrandom);
     botname.textContent = "Hero: " + bot.name;
-    botrace.textContent = "Race: " + bot.race;
-    botstuff.textContent = "Stuff: " + bot.item;
+    /* botrace.textContent = "Race: " + bot.race; */
+    //  botstuff.textContent = "Stuff: " + bot.item; 
     botlife.value = bot.currentHealth
     botlife.max = bot.currentHealth
+        /*  if (bot.race == "Elf") {
+             document.getElementById('img2').src = 'img/elfboots.png'
+         } */
+    bot.pictures(2)
 
 }
 
@@ -119,6 +126,7 @@ isvampire = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
 
 // MA FONCTION POUR ATTAQUER , INDEPENDANTE , PERMET DE CHOISIR LATTAQUANT ET LE DEFENSEUR
 variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
+
     var bardevie = document.getElementById(defenseurguillemet + "life");
     var mabardevie = document.getElementById(attaquantguillemet + "life");
     var dammage = attaquant.degat();
@@ -197,6 +205,7 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
 }
 
 variableheal = (attaquant, attaquantguillemet) => {
+
     let healeur = attaquant.heal()
     var mabardevie = document.getElementById(attaquantguillemet + "life");
     mabardevie.value = mabardevie.value + healeur
@@ -218,6 +227,7 @@ botlogic = () => {
 
         // jouer vie 
         isvampire(bot, "bot", "hero", hero)
+
         variableheal(bot, "bot")
         console.log("botvie")
 
@@ -232,12 +242,14 @@ botlogic = () => {
             //soigner 
             isvampire(bot, "bot", "hero", hero)
             variableheal(bot, "bot")
+
             console.log("botvie12")
 
         } else {
             //attaquer
             isvampire(bot, "bot", "hero", hero)
             variablepourattaquer(bot, "bot", "hero", hero)
+
             console.log("bot")
 
         }
@@ -249,6 +261,7 @@ botlogic = () => {
         isvampire(bot, "bot", "hero", hero)
 
         variablepourattaquer(bot, "bot", "hero", hero)
+
         console.log("bot1")
     }
 
@@ -259,7 +272,7 @@ botlogic = () => {
 
 
 attack.addEventListener("click", function() {
-    const element = document.getElementById('img1');
+
     element.classList.add('animate__animated', 'animate__wobble');
 
 
@@ -272,7 +285,7 @@ attack.addEventListener("click", function() {
 
 
     setTimeout(() => {
-        element.classList.remove('animate__animated', 'animate__wobble')
+
 
         if (botlife.value == 0) {
             alert(" You win ")
@@ -286,14 +299,20 @@ attack.addEventListener("click", function() {
             combat.setAttribute("style", "display:none")
             loose.setAttribute("style", "display:block")
         } else {
+            setTimeout(() => {
+                botlogic()
+                element2.classList.add('animate__animated', 'animate__wobble');
+            }, 500);
 
-            botlogic()
+
 
 
         }
 
-
+        element.classList.remove('animate__animated', 'animate__wobble')
+        element2.classList.remove('animate__animated', 'animate__wobble')
     }, 500);
+
 
 
 
@@ -305,7 +324,7 @@ attack.addEventListener("click", function() {
 
 
 heal.addEventListener("click", function() {
-
+    element.classList.add('animate__animated', 'animate__wobble');
 
     variableheal(hero, "hero")
 
@@ -313,19 +332,28 @@ heal.addEventListener("click", function() {
 
     setTimeout(() => {
 
+        if (botlife.value == 0) {
+            alert(" You win ")
+        }
 
+        if (herolife.value == 0) {
+            alert("you loose ")
+        } else {
+            setTimeout(() => {
+                botlogic()
+                element2.classList.add('animate__animated', 'animate__wobble');
+            }, 500);
+
+
+
+
+        }
+
+        element.classList.remove('animate__animated', 'animate__wobble')
+        element2.classList.remove('animate__animated', 'animate__wobble')
     }, 500);
 
-    if (botlife.value == 0) {
-        alert(" You win ")
-    }
 
-    if (herolife.value == 0) {
-        alert("you loose ")
-    } else {
-        botlogic()
-
-    }
 
 
 
