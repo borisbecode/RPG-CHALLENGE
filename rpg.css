@@ -6,7 +6,6 @@ body {
     background: -webkit-radial-gradient(rgb(89, 0, 0), rgb(176, 127, 0));
     background: radial-gradient(rgb(89, 0, 0), rgb(176, 127, 0));
     background-position: center;
-    overflow-y: hidden;
 }
 
 canvas {
