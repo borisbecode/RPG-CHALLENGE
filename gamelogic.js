@@ -40,9 +40,20 @@ var botstuff = document.getElementById("botstuff")
 var botlife = document.getElementById("botlife")
 var img2 = document.getElementById("img2")
 
+
+
+
+
+
+
+
+
 // DEFINIR LOBJET  POUR JOUEUR ET BOT 
 changeHero = () => {
     hero = new Person(Name.value, Race.value, Items.value);
+    if (Name.value == null) {
+        Name.value = " ivan le turlupin"
+    }
     heroname.textContent = "Hero: " + hero.name;
     /*   herorace.textContent = "Race: " + hero.race;
       herostuff.textContent = "Stuff: " + hero.item */
@@ -53,6 +64,7 @@ changeHero = () => {
 
 Setbot = () => {
     bot = new Person(botnamerandom, botracerandom, botitemsrandom);
+
     botname.textContent = "Hero: " + bot.name;
     /* botrace.textContent = "Race: " + bot.race; */
     //  botstuff.textContent = "Stuff: " + bot.item; 
@@ -64,6 +76,48 @@ Setbot = () => {
     bot.pictures(2)
 
 }
+
+
+
+
+
+
+
+
+
+
+
+const animateCSS = (element, animation, prefix = 'animate__') =>
+    // We create a Promise and return it
+    new Promise((resolve, reject) => {
+        const animationName = `${prefix}${animation}`;
+        const node = document.getElementById("img1")
+        const node2 = document.getElementById("img2")
+
+        node.classList.add(`${prefix}animated`, animationName);
+        node2.classList.add(`${prefix}animated`, animationName);
+
+        // When the animation ends, we clean the classes and resolve the Promise
+        function handleAnimationEnd(event) {
+            event.stopPropagation();
+            node.classList.remove(`${prefix}animated`, animationName);
+            node2.classList.remove(`${prefix}animated`, animationName);
+            resolve('Animation ended');
+        }
+
+        node.addEventListener('animationend', handleAnimationEnd, { once: true });
+        node2.addEventListener('animationend', handleAnimationEnd, { once: true });
+    });
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,6 +148,14 @@ updateLogHeal = (attaquant, attaquantguillemet, y) => {
 
 
 
+
+
+
+
+
+
+
+// PREMIER BOUTON 
 document.getElementById("button").addEventListener("click", function() {
 
 
@@ -101,10 +163,21 @@ document.getElementById("button").addEventListener("click", function() {
     combat.setAttribute("style", "display:block")
     changeHero()
     Setbot()
+    animateCSS('element', 'backInDown');
+
 
 
 
 })
+
+
+
+
+
+
+
+
+
 
 isvampire = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
     var bardevie = document.getElementById(defenseurguillemet + "life");
@@ -120,6 +193,13 @@ isvampire = (attaquant, attaquantguillemet, defenseurguillemet, defenseur) => {
 
     }
 }
+
+
+
+
+
+
+
 
 
 
@@ -204,6 +284,20 @@ variablepourattaquer = (attaquant, attaquantguillemet, defenseurguillemet, defen
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 variableheal = (attaquant, attaquantguillemet) => {
 
     let healeur = attaquant.heal()
@@ -217,6 +311,18 @@ variableheal = (attaquant, attaquantguillemet) => {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 botlogic = () => {
@@ -271,7 +377,24 @@ botlogic = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 attack.addEventListener("click", function() {
+
 
     element.classList.add('animate__animated', 'animate__wobble');
 
@@ -320,6 +443,25 @@ attack.addEventListener("click", function() {
 
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
